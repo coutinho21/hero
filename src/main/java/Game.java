@@ -24,8 +24,7 @@ public class Game {
 
     private void draw() throws IOException {
         screen.clear();
-        screen.setCharacter(hero.get_x(), hero.get_y(), TextCharacter.fromCharacter('X')
-                [0]);
+        hero.draw(screen);
         screen.refresh();
     }
 
@@ -41,12 +40,14 @@ public class Game {
 
     private void processKey(KeyStroke key) throws IOException {
         System.out.println(key);
-        if (key.getKeyType() == KeyType.ArrowUp) hero.moveUp();
-        else if(key.getKeyType() == KeyType.ArrowDown) hero.moveDown();
-        else if(key.getKeyType() == KeyType.ArrowLeft) hero.moveLeft();
-        else if(key.getKeyType() == KeyType.ArrowRight) hero.moveRight();
+        if (key.getKeyType() == KeyType.ArrowUp) moveHero(hero.moveUp());
+        else if(key.getKeyType() == KeyType.ArrowDown) moveHero(hero.moveDown());
+        else if(key.getKeyType() == KeyType.ArrowLeft) moveHero(hero.moveLeft());
+        else if(key.getKeyType() == KeyType.ArrowRight) moveHero(hero.moveRight());
         else if( key.getCharacter() == 'q') screen.close();
-
+    }
+    private void moveHero(Position position){
+        hero.setPosition(position);
     }
 }
 
