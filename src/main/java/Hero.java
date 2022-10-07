@@ -25,13 +25,12 @@ public class Hero {
         return new Position(position.get_x() + 1,position.get_y());
     }
 
-    public void draw(Screen screen){
-        screen.setCharacter(position.get_x(), position.get_y(), TextCharacter.fromCharacter('X')
-                [0]);
-    }
-
     public void setPosition(Position position){
         this.position.set_x(position.get_x());
         this.position.set_y(position.get_y());
+    }
+
+    public Position getPosition(){
+        return position;
     }
 }
