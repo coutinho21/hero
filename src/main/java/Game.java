@@ -1,5 +1,6 @@
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
@@ -13,6 +14,7 @@ public class Game {
     private Screen screen;
     Arena arena = new Arena(10,10);
     Hero hero = new Hero(10,10);
+
     public Game() throws IOException {
         TerminalSize terminalSize = new TerminalSize(40, 20);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
@@ -25,7 +27,7 @@ public class Game {
 
     private void draw() throws IOException {
         screen.clear();
-        arena.draw(screen);
+        arena.draw(screen.newTextGraphics());
         screen.refresh();
     }
 
@@ -34,6 +36,7 @@ public class Game {
         while(true) {
             draw();
             key = screen.readInput();
+            if(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') screen.close();
             if(key.getKeyType() == KeyType.EOF) break;
             processKey(key);
         }
