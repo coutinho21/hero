@@ -6,8 +6,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 
 public class Hero extends Element{
-    private Position position = new Position(10,10);
-    private int x,y;
     public Hero(int x, int y){
         super(x,y);
     }
@@ -28,17 +26,8 @@ public class Hero extends Element{
         return new Position(position.get_x() + 1,position.get_y());
     }
 
-    public void setPosition(Position position){
-        this.position.set_x(position.get_x());
-        this.position.set_y(position.get_y());
-    }
-
-    public Position getPosition(){
-        return position;
-    }
-
     public void draw(TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#000000"));
         graphics.enableModifiers(SGR.BOLD);
         graphics.putString(new TerminalPosition(position.get_x(), position.get_y()), "X");
     }

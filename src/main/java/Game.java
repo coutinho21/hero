@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class Game {
     private Screen screen;
-    Arena arena = new Arena(10,10);
+    Arena arena = new Arena(40,20);
     Hero hero = new Hero(10,10);
 
     public Game() throws IOException {
@@ -44,9 +44,6 @@ public class Game {
 
     private void processKey(KeyStroke key) throws IOException {
         arena.processKey(key);
-    }
-    private void moveHero(Position position){
-        hero.setPosition(position);
     }
 }
 
