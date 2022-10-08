@@ -1,19 +1,15 @@
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextCharacter;
-import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.input.KeyStroke;
-import javax.swing.*;
 import java.io.IOException;
 
 public class Game {
     private Screen screen;
     Arena arena = new Arena(40,20);
-    Hero hero = new Hero(10,10);
 
     public Game() throws IOException {
         TerminalSize terminalSize = new TerminalSize(40, 20);
@@ -42,7 +38,7 @@ public class Game {
         }
     }
 
-    private void processKey(KeyStroke key) throws IOException {
+    private void processKey(KeyStroke key){
         arena.processKey(key);
     }
 }

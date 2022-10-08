@@ -4,13 +4,6 @@ public class Position {
         this.x = x;
         this.y = y;
     }
-    public void set_x(int x){
-        this.x = x;
-    }
-
-    public void set_y(int y){
-        this.y = y;
-    }
 
     public int get_x(){
         return x;
