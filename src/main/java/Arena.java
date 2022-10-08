@@ -16,6 +16,7 @@ public class Arena {
     private int width, height;
     private List<Wall> walls;
     private List<Coin> coins;
+    private List<Monster> monsters;
     private Hero hero;
     public Arena(int width, int height){
         this.width = width;
@@ -23,6 +24,7 @@ public class Arena {
         hero = new Hero(10,10);
         walls = createWalls();
         coins = createCoins();
+        monsters = createMonsters();
     }
 
     public void processKey(KeyStroke key){
@@ -31,6 +33,10 @@ public class Arena {
         else if(key.getKeyType() == KeyType.ArrowDown) moveHero(hero.moveDown());
         else if(key.getKeyType() == KeyType.ArrowLeft) moveHero(hero.moveLeft());
         else if(key.getKeyType() == KeyType.ArrowRight) moveHero(hero.moveRight());
+        verifyMonsterCollisions();
+        moveMonsters();
+        verifyMonsterCollisions();
+        retrieveCoins();
     }
 
     private void moveHero(Position position){
@@ -50,7 +56,10 @@ public class Arena {
         hero.draw(graphics);
         for (Wall wall : walls) wall.draw(graphics);
         for(Coin coin : coins) coin.draw(graphics);
-        retrieveCoins();
+        for(Monster monster : monsters) monster.draw(graphics);
+        if(coins.isEmpty()){
+            graphics.putString(15,9,"YOU WON!");
+        }
     }
 
     private List<Wall> createWalls() {
@@ -74,5 +83,30 @@ public class Arena {
         return coins;
     }
 
-    private void retrieveCoins(){for(Coin coin : coins) if(hero.getPosition().equals(coin.getPosition())) coins.remove(coin);}
+    private List<Monster> createMonsters(){
+        Random random = new Random();
+        ArrayList<Monster> monsters = new ArrayList<>();
+        for (int i = 0; i < 5; i++)
+            monsters.add(new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+        return monsters;
+    }
+    private void retrieveCoins(){
+        coins.removeIf(coin -> hero.getPosition().equals(coin.getPosition()));
+    }
+
+    private void moveMonsters() {
+        for (Monster monster : monsters) {
+            Position temp = monster.move();
+            if(canHeroMove(temp)) monster.setPosition(temp);
+        }
+    }
+
+    private void verifyMonsterCollisions(){
+        for(Monster monster: monsters){
+            if(monster.getPosition().equals(hero.getPosition())){
+                System.out.println("GAME OVER");
+                System.exit(0);
+            }
+        }
+    }
 }
